@@ -1,0 +1,29 @@
+2009-04-29  Bas Wijnen <wijnen@debian.org>
+
+	* autogen.sh: Removed because autoreconf works fine.
+	* pypp.cc: Use shevek::iostring instead of sstr.
+
+2007-02-02  Bas Wijnen <wijnen@debian.org>
+
+	* pypp.c, pypp.1: Allow comments (on lines of their own).
+	* pypp.c: Don't try parsing files with incorrect header.
+	* Makefile.am: Set version to 1.
+
+2007-01-16  Bas Wijnen <wijnen@debian.org>
+
+	* pypp.cc: Removed unused commandline arguments.
+	* pypp.1: New file.
+
+2007-01-15  Bas Wijnen <wijnen@debian.org>
+
+	* pypp.cc: Better error messages.
+	* pypp.cc: Add #line directives.
+	* pypp.cc: Don't print comma on last enum element.
+	* pypp.cc: Better whitespace handling.
+	* pypp.cc: Fix "else if" handling.
+	* pypp.cc: Handle switch, try and catch.
+	* pypp.cc: Improved label handling (for public et al).
+
+2007-01-09  Bas Wijnen <wijnen@debian.org>
+	* AUTHORS, autogen.sh, ChangeLog, configure.ac, Makefile.am, NEWS,
+	pypp.cc, README: New files.

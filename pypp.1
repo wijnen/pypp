@@ -1,0 +1,176 @@
+.TH pypp 1 "Januari 16, 2007" "pypp"
+.SH NAME
+pypp \- Python-style preprocessor for C and C++ code
+
+.SH SYNOPSIS
+.B pypp
+[
+.B options
+]
+
+.SH DESCRIPTION
+.B Pypp
+is a preprocessor for C and C++ code, to be run before the normal
+preprocessor.  It allows the programmer to use python-style compound
+statements, making the code more readable.
+
+.PP
+Currently,
+.B pypp
+does three things:
+
+ * generate blocks depending on indentation,
+ * add semicolons at the end of lines, and
+ * add parenthesis around command arguments.
+
+It always uses standard in for input, and standard out for output.  It is
+suggested that you use redirection.
+
+.SH EXAMPLES
+Here is some code to show what
+.B pypp
+does.  If you don't understand what it does, please run it through pypp and
+view the result.  Note that this example needs to be viewed in at least 80
+columns, or else man will wrap the lines.
+
+.RS
+// This comment gets a semicolon, but that's no problem
+.br
+// Lines starting with # don't get a semicolon
+.br
+#include <iostream>
+.br
+.PP
+// Lines ending with a colon get a block after them
+.br
+struct foo:
+.br
+.RS
+int a
+.br
+char *b
+.RE
+.PP
+// Enum values are seperated by comma's, not semicolons, and
+.br
+// the last comma is omitted
+.br
+enum bar:
+.br
+.RS
+beer
+.br
+wine
+.br
+milk
+.RE
+.PP
+// Lines ending with a colon which aren't starting with
+.br
+// a recognised keyword get a block after them but no
+.br
+// semicolon at the end: function definitions
+.br
+int main (int argc, char **argv):
+.RS
+// The argument of if doesn't need parenthesis
+.br
+if argc < 5:
+.RS
+std::cout << "Less than five arguments\n"
+.RE
+else if argc < 10:
+.RS
+std::cout << "Less than ten arguments\n"
+.RE
+// switch also works fine, but note that
+.br
+// case labels must be indented
+.br
+// You probably want to indent the commands
+.br
+// as well, which will result in blocks
+.br
+// around them (allowing variable
+.br
+// initialisation, which is nice)
+.br
+switch argc:
+.RS
+case 5:
+.RS
+for i = 0; i < 5; ++i:
+.RS
+// lines may be wrapped,
+.br
+// as long as the last
+.br
+// character isn't a colon,
+.br
+// and the indentation is
+.br
+// higher than the previous line
+.br
+std::cerr << "Argument " << i
+.RS
+<< "is " << argv[i] << '\\n'
+.\" end indent
+.RE
+.\" end for
+.RE
+break
+.\" end case
+.RE
+default:
+.RS
+return 1
+.RE
+.\" end switch
+.RE
+// Because of the indentation, this is in the
+.br
+// outermost block of main.
+.br
+return 0
+.\" end main
+.RE
+.\" end example
+.RE
+
+.SH OPTIONS
+.B pypp
+accepts the following options:
+.TP
+.B \-h, \-\-help
+Print a short help text and exit.
+.TP
+.B \-\-version
+Print version and bug reporting information and exit.
+.TP
+.BI "\-n, \-\-name" " filename"
+Filename used for error reporting
+.TP
+.B "\-\-clean"
+Omit #line statements from output.  This makes the result easier to read, but
+any error messages will point into the generated files.
+
+.SH BUGS
+Labels called public and private are not allowed to indent at a different level
+than the declarations around them, or else brackets would be inserted (which is
+not allowed by the compiler).
+
+.PP
+A missing feature is python-style function calls.  This would be really cool,
+but means
+.B pypp
+needs to understand the code at a much deeper level than it does now.
+
+.PP
+Please report bugs and/or send patches to Bas Wijnen <wijnen@debian.org>, or
+via http://pcbcn10.phys.rug.nl/cgi-bin/trac.cgi/.
+
+.SH AUTHOR
+At this moment, all code and documentation is written by Bas Wijnen
+<wijnen@debian.org>.  However, this may be outdated when you read this (in
+which case please notify us).  The AUTHORS file in the source holds a complete
+list of contributing authors.

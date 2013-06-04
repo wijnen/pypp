@@ -1,0 +1,19 @@
+Source: pypp
+Section: devel
+Priority: optional
+Maintainer: Bas Wijnen <wijnen@debian.org>
+Build-Depends: debhelper (>= 9), libshevek-dev, libglibmm-2.4-dev, automake, dh-autoreconf
+Standards-Version: 3.9.4
+
+Package: pypp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Python-style preprocessor for C and C++ code
+ C and C++ have many advantages, but one thing Python does better is
+ indentation: blocks are automatically started and ended by indenting.  This
+ makes sure that the indentation cannot be "wrong": If you indent a piece of
+ code after a for, it not only seems to be a compound statement, it is a
+ compound statement.
+ .
+ This preprocessor reads code which is indented in such a way, and outputs
+ proper C or C++ code, which can then be compiled with gcc or g++.
